@@ -1,0 +1,6 @@
+# Lean build artifacts and dependencies
+.lake/
+
+# macOS metadata and local logs
+.DS_Store
+*.log

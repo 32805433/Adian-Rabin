@@ -1,0 +1,15 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "Undecidability.exists_three_generator_nine_relator_group_with_unsolvable_word_problem",
+    "Undecidability.exists_four_generator_eleven_relator_adian_rabin_family",
+    "Undecidability.exists_two_generator_ten_relator_adian_rabin_family"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": false
+}

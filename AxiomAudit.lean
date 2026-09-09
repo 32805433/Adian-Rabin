@@ -1,0 +1,7 @@
+import GroupUndecidability
+
+/-! Transitive kernel-axiom audit for the three public theorems. -/
+
+#print axioms Undecidability.exists_three_generator_nine_relator_group_with_unsolvable_word_problem
+#print axioms Undecidability.exists_four_generator_eleven_relator_adian_rabin_family
+#print axioms Undecidability.exists_two_generator_ten_relator_adian_rabin_family
