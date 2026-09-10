@@ -10,9 +10,7 @@ project:
     an effective family of four-generator, eleven-relator presentations with
     undecidable triviality; and an effective family of two-generator,
     ten-relator presentations with undecidable triviality. These are
-    Theorems 1.1, 1.3, and 1.4 of the paper. The proof includes the required
-    machine-to-Thue reduction, binary three-rule compression, Borisov group
-    simulation, host compression, and both Adian–Rabin reductions. The
+    Theorems 1.1, 1.3, and 1.4 of the paper. The
     four-manifold consequences in the paper are outside the formalized scope.
   authors:
     - "Marc Kegel"
