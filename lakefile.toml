@@ -13,3 +13,6 @@ globs = ["GroupUndecidability", "GroupUndecidability.+"]
 
 [[lean_lib]]
 name = "AxiomAudit"
+
+[[lean_lib]]
+name = "Challenge"

@@ -1,5 +1,14 @@
 # Proof outline
 
+This outlines the proofs of Theorems 1.1, 1.3, and 1.4 of
+[*Small undecidable groups and unrecognizable 4-manifolds*,
+arXiv:2609.10461v1](https://arxiv.org/abs/2609.10461v1).
+The three public declarations are in
+[GroupUndecidability.lean](GroupUndecidability.lean), which imports the
+modular proof library. [Challenge.lean](Challenge.lean) states the same
+results independently of the proof library. The paper's four-manifold
+consequences are outside this formalization.
+
 ## The common `3/9` host
 
 1. **Universal computation becomes finite rewriting.** The proof fixes an

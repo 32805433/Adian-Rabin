@@ -1,0 +1,204 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Small undecidable groups and fixed-size Adian–Rabin families"
+  description: >-
+    Lean 4 proofs of the algebraic results in Small undecidable groups and
+    unrecognizable 4-manifolds (arXiv:2609.10461v1): existence of a group with
+    a three-generator, nine-relator presentation and unsolvable word problem;
+    an effective family of four-generator, eleven-relator presentations with
+    undecidable triviality; and an effective family of two-generator,
+    ten-relator presentations with undecidable triviality. These are
+    Theorems 1.1, 1.3, and 1.4 of the paper. The proof includes the required
+    machine-to-Thue reduction, binary three-rule compression, Borisov group
+    simulation, host compression, and both Adian–Rabin reductions. The
+    four-manifold consequences in the paper are outside the formalized scope.
+  authors:
+    - "Marc Kegel"
+    - "Shana Yunsheng Li"
+    - "Qiuyu Ren"
+  responsible_maintainers:
+    - "Qiuyu Ren"
+  license: "MIT"
+
+# This repository contains the substantive modular proof development.
+sources:
+  - title: "Small undecidable groups and unrecognizable 4-manifolds"
+    authors: ["Marc Kegel", "Shana Yunsheng Li", "Qiuyu Ren"]
+    id: "https://arxiv.org/abs/2609.10461v1"
+    type: "paper"
+    location: "Theorems 1.1, 1.3, and 1.4; Section 1.6 describes the formalization"
+    relationship: "formalizes"
+    author_endorsement: "participated"
+    note: >-
+      Source for all three compared declarations. Corollary 1.5 on
+      unrecognizable four-manifolds is not formalized.
+  - title: "Simple examples of groups with unsolvable word problem"
+    authors: ["V. V. Borisov"]
+    id: "https://doi.org/10.1007/BF01101402"
+    type: "paper"
+    relationship: "adapts"
+    note: >-
+      Borisov's group simulation is proved in Lean. Further HNN embeddings
+      and Tietze eliminations produce the three-generator, nine-relator host.
+  - title: "Word problem for Thue systems with a few relations"
+    authors: ["Yuri Matiyasevich"]
+    id: "https://doi.org/10.1007/3-540-59340-3_4"
+    type: "paper"
+    relationship: "adapts"
+    note: >-
+      The formalization uses the 1995 compression route to a binary
+      three-rule Thue system, followed by a synchronization encoding.
+      It does not follow the 1967 construction initially considered.
+  - title: "Recursive unsolvability of a problem of Thue"
+    authors: ["Emil L. Post"]
+    id: "https://doi.org/10.2307/2267170"
+    type: "paper"
+    relationship: "adapts"
+    note: >-
+      Machine-to-Thue simulation supplies the finite undecidable rewriting
+      seed; the required arguments are proved rather than postulated.
+  - title: "Decision problems for groups—survey and reflections"
+    authors: ["Charles F. Miller III"]
+    id: "https://doi.org/10.1007/978-1-4613-9730-4_1"
+    type: "paper"
+    relationship: "adapts"
+    note: "Source for the Miller–Tancer reduction used in the four-generator family."
+  - title: "Simpler algorithmically unrecognizable 4-manifolds"
+    authors: ["Martin Tancer"]
+    id: "https://arxiv.org/abs/2310.07421v2"
+    type: "paper"
+    location: "Theorem 9 and the Adian–Rabin construction"
+    relationship: "adapts"
+    note: >-
+      A compressed Miller–Tancer construction uses a displayed normal
+      generator to obtain n+1 generators and m+2 relators from an n-generator,
+      m-relator host. With the three-nine host this gives the four-eleven family.
+  - title: "On the homeomorphism problem for 4-manifolds"
+    authors: ["Cameron McA. Gordon"]
+    id: "https://doi.org/10.53733/205"
+    type: "paper"
+    location: "Condition (2.1) and Lemma 2.1"
+    relationship: "adapts"
+    note: >-
+      Gordon's algebraic reduction is proved in Lean and applied to the
+      three-nine host. A host generator trivial in the abelianization
+      verifies the required condition. The topology is not formalized.
+  - title: "The Word Problem for Groups"
+    authors: ["J. L. Britton"]
+    id: "https://doi.org/10.1112/plms/s3-8.4.493"
+    type: "paper"
+    relationship: "background"
+    note: "Background for the HNN normal-form arguments."
+  - title: "Formalizing Computability Theory via Partial Recursive Functions"
+    authors: ["Mario Carneiro"]
+    id: "https://doi.org/10.4230/LIPIcs.ITP.2019.12"
+    type: "paper"
+    relationship: "background"
+    note: "Background for Mathlib's partial-recursive computability framework."
+
+related_formalizations: []
+
+classification:
+  arxiv: ["math.GR", "math.LO"]
+  msc2020: ["20F10", "20F05", "03D35"]
+
+status:
+  scope: >-
+    Complete proofs of the three compared algebraic existence theorems and
+    their required dependencies. The statement interface counts generator
+    and relator slots. No optimality or minimality claim, four-manifold
+    theorem, or general theorem about all Markov properties is within scope.
+  # Counts refer to the proved library; the three deliberate theorem holes
+  # in the independent Challenge.lean statement file are excluded.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "Undecidability.exists_three_generator_nine_relator_group_with_unsolvable_word_problem"
+      file: "GroupUndecidability.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "Undecidability.exists_four_generator_eleven_relator_adian_rabin_family"
+      file: "GroupUndecidability.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "Undecidability.exists_two_generator_ten_relator_adian_rabin_family"
+      file: "GroupUndecidability.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["GPT-5.6 Sol Pro"]
+      tool_setup: "Informal proof development, as reported in the paper, Section 1.6."
+      prompting_notes: "Produced an informal proof of Theorem 1.1 in a companion PDF."
+    - method: "agent"
+      models: ["GPT-5.6 Sol"]
+      framework: "Codex"
+      tool_setup: >-
+        Lean 4 and Mathlib, with iterative compilation, literature-guided
+        proof development, source audits, and statement verification.
+      prompting_notes: >-
+        Formalized statements and a proof skeleton, discharged all temporary
+        axioms, constructed the Post/Matiyasevich route, formalized both
+        Adian–Rabin reductions, and audited and reorganized the development.
+    - method: "agent"
+      models: ["GPT-6"]
+      framework: "Codex"
+      tool_setup: >-
+        Preparation and editing of project documentation, structured metadata,
+        and verification configuration; local build, axiom, and statement
+        verification. This method did not generate the mathematical proofs.
+  notes: >-
+    Essentially all Lean code was generated with AI assistance under human
+    direction. The paper, Section 1.6, reports manual checking of the theorem
+    statements. Detailed cost and runtime measurements are not available.
+
+fidelity:
+  divergences: >-
+    The Lean interface represents a presentation by exactly n generator
+    slots and m relator slots, without claiming these counts are minimal or
+    that relators are distinct. An Adian–Rabin family is a total computable
+    sequence of relator tuples with an undecidable set of trivial-group
+    indices; the paper phrases this as a recursively enumerable family
+    with undecidable triviality. This effective indexing gives such a
+    family: a decision procedure on its presentations would decide its
+    indices by composition. The Thue-system input is proved using Post's
+    machine simulation and Matiyasevich's 1995 compression.
+    Only the algebraic Theorems 1.1, 1.3, and 1.4 are represented here.
+    The topological and smooth conclusions of Corollary 1.5 are not checked.
+
+review:
+  status: "self-assessed"
+  notes: >-
+    Section 1.6 of the paper reports that the authors manually checked the
+    formal statements and used Codex for proof and axiom audits, followed
+    by automated statement comparison and Lean kernel replay. This is not
+    a claim of independent human review of all proof code. AXIOM_AUDIT.md
+    records the local checks and their scope. NanoDa replay was not
+    performed in that verification run.
+
+alignment:
+  namespace: "Undecidability"
+  statements:
+    - source: "arXiv:2609.10461v1, Theorem 1.1"
+      lean: "Undecidability.exists_three_generator_nine_relator_group_with_unsolvable_word_problem"
+      module: "GroupUndecidability"
+      status: "proved"
+    - source: "arXiv:2609.10461v1, Theorem 1.3"
+      lean: "Undecidability.exists_four_generator_eleven_relator_adian_rabin_family"
+      module: "GroupUndecidability"
+      status: "proved"
+    - source: "arXiv:2609.10461v1, Theorem 1.4"
+      lean: "Undecidability.exists_two_generator_ten_relator_adian_rabin_family"
+      module: "GroupUndecidability"
+      status: "proved"

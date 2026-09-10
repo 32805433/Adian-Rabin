@@ -40,7 +40,7 @@ proof placeholders. Its transitive kernel audit reports only Lean's standard
 principles `propext`, `Classical.choice`, and `Quot.sound`; see
 [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md). For a self-contained formalization of the
 statements and the definitions needed to check them, see
-[`comparator/Challenge.lean`](comparator/Challenge.lean).
+[`Challenge.lean`](Challenge.lean).
 
 The public Adian–Rabin interface also provides two reusable reductions in
 [`GroupUndecidability/AdianRabin.lean`](GroupUndecidability/AdianRabin.lean):
@@ -82,7 +82,8 @@ import GroupUndecidability
 | [`GroupUndecidability/`](GroupUndecidability/) | Active formal proof library |
 | [`AxiomAudit.lean`](AxiomAudit.lean), [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) | Executable kernel audit and its recorded result |
 | [`PROOF_OUTLINE.md`](PROOF_OUTLINE.md) | Outline of the three formalized proofs |
-| [`comparator/`](comparator/) | Self-contained statements, solution, and Lean Comparator configuration |
+| [`Challenge.lean`](Challenge.lean) | Independent statements of the three main theorems |
+| [`formalization.yaml`](formalization.yaml) | Structured provenance, theorem mapping, and review status |
 | [`lakefile.toml`](lakefile.toml), [`lake-manifest.json`](lake-manifest.json), [`lean-toolchain`](lean-toolchain) | Project configuration and pinned Lean/Mathlib dependencies |
 
 ## Proof-library layout
@@ -109,6 +110,13 @@ developments. The principal construction endpoints are
 
 ## References
 
+The accompanying paper is Marc Kegel, Shana Yunsheng Li, and Qiuyu Ren,
+[*Small undecidable groups and unrecognizable 4-manifolds*,
+arXiv:2609.10461v1](https://arxiv.org/abs/2609.10461v1). The three public
+Lean declarations formalize Theorems 1.1, 1.3, and 1.4, respectively.
+The topological and smooth four-manifold consequences in Corollary 1.5
+are outside the formalized scope.
+
 The following published sources supplied inputs and background:
 
 | Source | Use in the development |
@@ -123,9 +131,11 @@ The following published sources supplied inputs and background:
 
 ## AI authorship
 
-Essentially all of the Lean source, supporting scripts, and project
-documentation in this repository was produced by GPT-5.6 Sol in Codex,
-under the direction and review of the author.
+Essentially all of the Lean source was produced by GPT-5.6 Sol in Codex,
+under the direction and review of the authors. Section 1.6 of the paper
+describes the development process and reports manual checking of the formal
+statements. [formalization.yaml](formalization.yaml) records the automated
+methods used for the proof development and accompanying documentation.
 
 ## License
 
