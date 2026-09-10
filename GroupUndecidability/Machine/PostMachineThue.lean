@@ -76,8 +76,8 @@ def target {Q : Type*} : List (Symbol Q) :=
   [Symbol.rightMarker, Symbol.leftMarker]
 
 /-- Post's rules.  The first three constructors clean a halted configuration;
-the remaining four constructors simulate the two boundary cases and the two
-interior cases for each head direction. -/
+the remaining four simulate one boundary case and one interior case for
+each head direction. -/
 inductive Rule {Q : Type*} (M : Machine Q) :
     List (Symbol Q) → List (Symbol Q) → Prop
   | halt {q a} (h : M q a = none) :
@@ -362,7 +362,7 @@ private def stateCount {Q : Type*} (w : List (Symbol Q)) : ℕ :=
 @[simp] private theorem stateCount_state_cons {Q : Type*}
     (q : Q) (w : List (Symbol Q)) :
     stateCount (Symbol.state q :: w) = stateCount w + 1 := by
-  simp [stateCount, isState]
+  simp [stateCount, List.countP_cons, isState]
 
 @[simp]
 private theorem stateCount_encodeTape {Q : Type*} (w : List Bool) :

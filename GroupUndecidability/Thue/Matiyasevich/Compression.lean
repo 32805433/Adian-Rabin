@@ -119,12 +119,12 @@ theorem rightWidth_ge_two (F E : Fin r → List (Fin n)) :
 
 theorem stage₁F_nonempty (F E : Fin r → List (Fin n))
     (i : Fin (relationCount n r)) : Padding.stage₁F F E i ≠ [] := by
-  rw [← List.length_pos_iff, Padding.stage₁F_length]
+  rw [← List.length_pos_iff, Padding.stage₁F_length F E i]
   exact Padding.p_pos F E
 
 theorem stage₁E_nonempty (F E : Fin r → List (Fin n))
     (i : Fin (relationCount n r)) : Padding.stage₁E F E i ≠ [] := by
-  rw [← List.length_pos_iff, Padding.stage₁E_length]
+  rw [← List.length_pos_iff, Padding.stage₁E_length F E i]
   simp [Padding.q]
 
 theorem leftRows_starts_aa (F E : Fin r → List (Fin n))
@@ -446,9 +446,9 @@ theorem fullEncode_ne_nil (F E : Fin r → List (Fin n))
 
 /-! ### Interface of the priority-stage proof -/
 
-/-- The exact two assertions supplied by Section 2.4 for the words coming
-from the preceding encodings.  In particular, this deliberately does not
-claim an unrestricted embedding of the intermediate binary system. -/
+/-- The shape, equivalence, and reachability invariants from Section 2.4
+for words from the preceding encodings.  The equivalence applies to encoded
+source words, rather than to arbitrary words of the intermediate system. -/
 structure PriorityBridge (F E : Fin r → List (Fin n)) : Prop where
   leftShape : LongShape (2 * t n r) (leftLong F E)
   rightShape : LongShape (2 * t n r) (rightLong F E)
@@ -460,9 +460,8 @@ structure PriorityBridge (F E : Fin r → List (Fin n)) : Prop where
     ReachableNoAAA (leftLong F E) (rightLong F E)
       (priorityEncode F E X)
 
-/-- Once Section 2.4 is packaged as `PriorityBridge`, the verified final
-decoder gives the desired equivalence-reflecting encoding into the
-three-relation system. -/
+/-- The final decoder combines with `PriorityBridge` to give an
+equivalence-reflecting encoding into the three-relation system. -/
 def embeddingOfBridge (F E : Fin r → List (Fin n))
     (bridge : PriorityBridge F E) :
     Embedding (finiteSystem F E) (baseSystem (U₃ F E) (V₃ F E)) where

@@ -28,7 +28,8 @@ omit [DecidableEq ι] [(i : ι) → DecidableEq (M i)] in
 @[simp] private theorem singletonWord_prod {i : ι} (m : M i)
     (hm : m ≠ 1) :
     (singletonWord m hm : CoprodI.Word M).prod = CoprodI.of m := by
-  simp [singletonWord, CoprodI.Word.prod_cons]
+  change CoprodI.of m * 1 = CoprodI.of m
+  exact mul_one _
 
 private def twoWord {i j : ι} (hij : i ≠ j) (d : M i) (e : M j)
     (hd : d ≠ 1) (he : e ≠ 1) : CoprodI.Word M :=
@@ -59,7 +60,8 @@ theorem normalForm_length_mul_of_of_le_two {i j : ι} (hij : i ≠ j)
         change _ = (singletonWord e he).prod
         simp
       rw [hword]
-      simp [singletonWord]
+      change 1 ≤ 2
+      decide
   · by_cases he : e = 1
     · subst e
       have hword :
@@ -69,7 +71,8 @@ theorem normalForm_length_mul_of_of_le_two {i j : ι} (hij : i ≠ j)
         change _ = (singletonWord d hd).prod
         simp
       rw [hword]
-      simp [singletonWord]
+      change 1 ≤ 2
+      decide
     · have hword :
           CoprodI.Word.equiv (CoprodI.of d * CoprodI.of e) =
             twoWord hij d e hd he := by
@@ -77,7 +80,8 @@ theorem normalForm_length_mul_of_of_le_two {i j : ι} (hij : i ≠ j)
         change _ = (twoWord hij d e hd he).prod
         simp
       rw [hword]
-      simp [twoWord, singletonWord]
+      change 2 ≤ 2
+      exact le_rfl
 
 end CoprodIWordLength
 

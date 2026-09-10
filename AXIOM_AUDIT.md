@@ -1,6 +1,6 @@
 # Axiom audit
 
-Last checked: 2026-09-09.
+Last checked: 2026-09-09, with Lean and Mathlib 4.33.0.
 
 ## Scope and method
 
@@ -22,9 +22,6 @@ Two checks are used:
 2. A recursive source scan checks every active Lean file for project axioms,
    proof placeholders, and `opaque` or `unsafe` declarations.
 
-Because `#print axioms` is transitive, the checks of the three public theorems
-cover every intermediate construction used by those results.
-
 ## Result
 
 The source scan found no project-defined axiom or proof placeholder in the
@@ -39,9 +36,10 @@ active formalization. The kernel results are:
 These are standard Lean/Mathlib logical axioms. No unproved mathematical
 assumption introduced by this project occurs in any public theorem.
 
-A separate local check on 2026-09-09 confirmed that the three proved
-declarations match the independent statements in `Challenge.lean` and
-passed Lean kernel replay. Independent NanoDa replay was not performed.
+A clean build of the proof library, `AxiomAudit.lean`, and `Challenge.lean`
+passed. The proof library and axiom audit produced no warnings; the statement
+file produced only its three intentional theorem-hole warnings. Separate
+statement comparison and proof replay have not been rerun for this version.
 
 ## Reproduction
 

@@ -325,8 +325,8 @@ theorem presentsTrivial_transform_of_wordProblem
       (transform P data w).relSet g
     obtain ⟨k, hk⟩ := hcyclicFG r
     exact ⟨k, hk.symm⟩
-  letI : IsCyclic (transform P data w).Group := hcyclic
-  letI : CommGroup (transform P data w).Group := IsCyclic.commGroup
+  let : IsCyclic (transform P data w).Group := hcyclic
+  let : CommGroup (transform P data w).Group := IsCyclic.commGroup
 
   have haSq (i : Fin data.p) : a ^ (data.q i ^ 2) = 1 := by
     have hab :

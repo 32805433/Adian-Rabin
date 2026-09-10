@@ -136,12 +136,11 @@ def betaProjection : LeftProduct G →* FreeGroup Unit :=
   CoprodI.lift leftFactorToBeta
 
 @[simp] theorem betaProjection_old (g : G) : betaProjection (old g) = 1 := by
-  simp [betaProjection, leftFactorToBeta, old]
+  exact CoprodI.lift_of leftFactorToBeta (i := LeftIndex.old) g
 
 @[simp] theorem betaProjection_beta :
     betaProjection (beta : LeftProduct G) = FreeGroup.of () := by
-  simp only [betaProjection, beta, CoprodI.lift_of, leftFactorToBeta]
-  rfl
+  exact CoprodI.lift_of leftFactorToBeta (i := LeftIndex.beta) (FreeGroup.of ())
 
 theorem beta_zpow_ne_one (k : ℤ) (hk : k ≠ 0) :
     (beta : LeftProduct G) ^ k ≠ 1 := by
@@ -171,7 +170,7 @@ theorem inv_old_mul_beta_inv_mul_beta_inv_ne_one (z : G) :
   calc
     (FreeGroup.of () : FreeGroup Unit) ^ (-2 : ℤ) =
         (FreeGroup.of ())⁻¹ * (FreeGroup.of ())⁻¹ := by
-          simp [zpow_neg, zpow_two]
+          simp [zpow_neg, pow_two]
     _ = 1 := by simpa using congrArg betaProjection h
 
 /-! The inner commutator is cyclically reduced of free-product length four. -/
@@ -190,7 +189,13 @@ def commutatorWord (w : G) (hw : w ≠ 1) :
 @[simp] theorem commutatorWord_prod (w : G) (hw : w ≠ 1) :
     (commutatorWord w hw).prod = (old w)⁻¹ * beta⁻¹ * old w * beta := by
   simp only [commutatorWord, CoprodI.NeWord.append_prod,
-    CoprodI.NeWord.prod_singleton, of_inv, old, beta]
+    CoprodI.NeWord.prod_singleton (M := LeftFactor G) (i := LeftIndex.old),
+    CoprodI.NeWord.prod_singleton (M := LeftFactor G) (i := LeftIndex.beta),
+    of_inv (G := G) (i := LeftIndex.old) w,
+    of_inv (G := G) (i := LeftIndex.beta) (FreeGroup.of ()), old, beta]
+  rw [CoprodI.NeWord.prod_singleton (M := LeftFactor G) (i := LeftIndex.old) w hw,
+    CoprodI.NeWord.prod_singleton (M := LeftFactor G) (i := LeftIndex.beta)
+      (FreeGroup.of ()) freeGenerator_ne_one]
   simp only [mul_assoc]
 
 /-!
@@ -309,7 +314,7 @@ def alphaSingleton (k : ℤ) (hk : k ≠ 0) :
 
 @[simp] theorem baseSingleton_prod (x : LeftProduct G) (hx : x ≠ 1) :
     (baseSingleton x hx).prod = baseOf x := by
-  simp [baseSingleton, baseOf]
+  exact CoprodI.NeWord.prod_singleton (M := OuterFactor G) (i := OuterIndex.base) x hx
 
 @[simp] theorem alphaSingleton_prod (k : ℤ) (hk : k ≠ 0) :
     (alphaSingleton (G := G) k hk).prod = outerAlpha ^ k := by

@@ -20,7 +20,6 @@ project:
     - "Qiuyu Ren"
   license: "MIT"
 
-# This repository contains the substantive modular proof development.
 sources:
   - title: "Small undecidable groups and unrecognizable 4-manifolds"
     authors: ["Marc Kegel", "Shana Yunsheng Li", "Qiuyu Ren"]
@@ -30,7 +29,7 @@ sources:
     relationship: "formalizes"
     author_endorsement: "participated"
     note: >-
-      Source for all three compared declarations. Corollary 1.5 on
+      Source for the three public declarations. Corollary 1.5 on
       unrecognizable four-manifolds is not formalized.
   - title: "Simple examples of groups with unsolvable word problem"
     authors: ["V. V. Borisov"]
@@ -48,7 +47,6 @@ sources:
     note: >-
       The formalization uses the 1995 compression route to a binary
       three-rule Thue system, followed by a synchronization encoding.
-      It does not follow the 1967 construction initially considered.
   - title: "Recursive unsolvability of a problem of Thue"
     authors: ["Emil L. Post"]
     id: "https://doi.org/10.2307/2267170"
@@ -104,7 +102,7 @@ classification:
 
 status:
   scope: >-
-    Complete proofs of the three compared algebraic existence theorems and
+    Complete proofs of the three formalized algebraic existence theorems and
     their required dependencies. The statement interface counts generator
     and relator slots. No optimality or minimality claim, four-manifold
     theorem, or general theorem about all Markov properties is within scope.
@@ -155,7 +153,9 @@ automation:
       tool_setup: >-
         Preparation and editing of project documentation, structured metadata,
         and verification configuration; local build, axiom, and statement
-        verification. This method did not generate the mathematical proofs.
+        verification. Adapted existing proofs for Lean and Mathlib 4.33.0,
+        preserving the mathematical statements, and checked the resulting
+        build and transitive axiom dependencies.
   notes: >-
     Essentially all Lean code was generated with AI assistance under human
     direction. The paper, Section 1.6, reports manual checking of the theorem
@@ -178,12 +178,12 @@ fidelity:
 review:
   status: "self-assessed"
   notes: >-
-    Section 1.6 of the paper reports that the authors manually checked the
-    formal statements and used Codex for proof and axiom audits, followed
-    by automated statement comparison and Lean kernel replay. This is not
-    a claim of independent human review of all proof code. AXIOM_AUDIT.md
-    records the local checks and their scope. NanoDa replay was not
-    performed in that verification run.
+    Section 1.6 of the paper reports manual checking of the formal
+    statements by the authors. The current revision passed a clean build
+    and transitive axiom audit with Lean and Mathlib 4.33.0; AXIOM_AUDIT.md
+    records these checks and their scope. Separate statement comparison
+    and proof replay have not been rerun for this version. The review
+    status does not claim independent human review of all proof code.
 
 alignment:
   namespace: "Undecidability"

@@ -37,7 +37,9 @@ abbrev State := PartrecToTM2.Λ'
 abbrev Symbol := PartrecToTM2.Γ'
 abbrev Stack := PartrecToTM2.K'
 
-deriving instance Fintype for PartrecToTM2.K'
+instance : Fintype PartrecToTM2.K' where
+  elems := {.main, .rev, .aux, .stack}
+  complete k := by cases k <;> simp
 
 noncomputable instance symbolPrimcodable : Primcodable Symbol :=
   Primcodable.ofEquiv (Fin (Fintype.card Symbol)) (Fintype.equivFin Symbol)
@@ -51,7 +53,7 @@ theorem tm2_eval_dom_iff (c : ToPartrec.Code) (n : ℕ) :
     (TM2.eval PartrecToTM2.tr PartrecToTM2.K'.main
       (PartrecToTM2.trList [n])).Dom ↔
       (c.eval [n]).Dom := by
-  letI : Inhabited State :=
+  let : Inhabited State :=
     ⟨PartrecToTM2.trNormal c PartrecToTM2.Cont'.halt⟩
   have hinit :
       TM2.init PartrecToTM2.K'.main (PartrecToTM2.trList [n]) =
@@ -60,8 +62,9 @@ theorem tm2_eval_dom_iff (c : ToPartrec.Code) (n : ℕ) :
     congr 1
     funext k
     cases k <;> rfl
-  rw [TM2.eval, hinit, PartrecToTM2.tr_eval]
-  simp
+  unfold TM2.eval
+  rw [hinit, PartrecToTM2.tr_eval]
+  rfl
 
 /-! The already verified Mathlib compilers turn the preceding four-stack
 machine into a deterministic one-tape Post machine. -/
@@ -236,9 +239,9 @@ theorem post_eval_dom_iff (c : ToPartrec.Code) (n : ℕ) :
     @Part.Dom (ListBlank TapeSymbol)
       (@TM0.eval TapeSymbol PostState (postStateInhabited c) inferInstance
         (postMachine c) (postInput n)) ↔ (c.eval [n]).Dom := by
-  letI : Inhabited State := stateInhabited c
-  letI : Inhabited OneTapeState := oneTapeStateInhabited c
-  letI : Inhabited PostState := postStateInhabited c
+  let : Inhabited State := stateInhabited c
+  let : Inhabited OneTapeState := oneTapeStateInhabited c
+  let : Inhabited PostState := postStateInhabited c
   rw [postMachine, TM1to0.tr_eval]
   exact (TM2to1.tr_eval_dom PartrecToTM2.tr
     PartrecToTM2.K'.main (PartrecToTM2.trList [n])).trans
@@ -254,8 +257,8 @@ noncomputable def oneTapeSupport (c : ToPartrec.Code) : Finset OneTapeState :=
 theorem oneTapeProgram_supports (c : ToPartrec.Code) :
     @TM1.Supports TapeSymbol OneTapeState (Option Symbol)
       (oneTapeStateInhabited c) oneTapeProgram (oneTapeSupport c) := by
-  letI : Inhabited State := stateInhabited c
-  letI : Inhabited OneTapeState := oneTapeStateInhabited c
+  let : Inhabited State := stateInhabited c
+  let : Inhabited OneTapeState := oneTapeStateInhabited c
   apply TM2to1.tr_supports
   exact PartrecToTM2.tr_supports c PartrecToTM2.Cont'.halt
 
@@ -287,8 +290,8 @@ theorem oneTape_halting_not_computable (c : ToPartrec.Code)
   intro hhalting
   apply post_halting_not_computable c hc
   exact hhalting.of_eq fun input => by
-    letI : Inhabited OneTapeState := oneTapeStateInhabited c
-    letI : Inhabited PostState := postStateInhabited c
+    let : Inhabited OneTapeState := oneTapeStateInhabited c
+    let : Inhabited PostState := postStateInhabited c
     rw [postMachine, TM1to0.tr_eval]
 
 end FixedMachine

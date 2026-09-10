@@ -55,7 +55,7 @@ The public Adian–Rabin interface also provides two reusable reductions in
 
 ## Build and use
 
-The project pins Lean and Mathlib at version 4.32.2. From the repository root:
+The project pins Lean and Mathlib at version 4.33.0. From the repository root:
 
 ```sh
 lake exe cache get
@@ -132,7 +132,8 @@ The following published sources supplied inputs and background:
 ## AI authorship
 
 Essentially all of the Lean source was produced by GPT-5.6 Sol in Codex,
-under the direction and review of the authors. Section 1.6 of the paper
+under the direction and review of the authors. GPT-6 subsequently adapted
+existing proofs for Lean and Mathlib 4.33.0. Section 1.6 of the paper
 describes the development process and reports manual checking of the formal
 statements. [formalization.yaml](formalization.yaml) records the automated
 methods used for the proof development and accompanying documentation.

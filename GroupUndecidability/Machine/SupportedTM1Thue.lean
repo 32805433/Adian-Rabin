@@ -78,7 +78,7 @@ theorem start_computable (B : TM1BinaryAdapter.Code Γ)
     (M : Λ → TM1.Stmt Γ Λ σ) (S : Finset Λ) (hS : TM1.Supports M S)
     [Primcodable Γ] [Primcodable (Alphabet B M S)] :
     Computable (start B M S hS) := by
-  letI : Inhabited (State B M S) :=
+  let : Inhabited (State B M S) :=
     TM1BinaryAdapter.finiteStateInhabited B M S hS
   exact (binaryStart_computable (Q := State B M S)).comp
     (TM1BinaryAdapter.encodeInput_computable B)
@@ -92,7 +92,7 @@ theorem thue_iff_eval_dom (B : TM1BinaryAdapter.Code Γ)
         (start B M S hS input)
         (PostMachine.target : List (Alphabet B M S)) ↔
       (TM1.eval M input).Dom := by
-  letI : Inhabited (State B M S) :=
+  let : Inhabited (State B M S) :=
     TM1BinaryAdapter.finiteStateInhabited B M S hS
   exact (TM0PostAdapter.thue_iff_tm0_eval_dom
     (TM1BinaryAdapter.finiteMachine B M S hS)
@@ -103,7 +103,7 @@ theorem thue_iff_eval_dom (B : TM1BinaryAdapter.Code Γ)
 theorem system_finite (B : TM1BinaryAdapter.Code Γ)
     (M : Λ → TM1.Stmt Γ Λ σ) (S : Finset Λ) (hS : TM1.Supports M S) :
     Set.Finite (PostMachine.system (postMachine B M S hS)) := by
-  letI : Inhabited (State B M S) :=
+  let : Inhabited (State B M S) :=
     TM1BinaryAdapter.finiteStateInhabited B M S hS
   exact TM0PostAdapter.thue_system_finite
     (TM1BinaryAdapter.finiteMachine B M S hS)

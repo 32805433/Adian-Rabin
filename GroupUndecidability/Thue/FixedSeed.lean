@@ -39,12 +39,12 @@ theorem thue_iff_oneTape_eval_dom (c : ToPartrec.Code)
         (PostMachine.target : List (ThueAlphabet c)) ↔
       letI : Inhabited OneTapeState := oneTapeStateInhabited c
       (TM1.eval oneTapeProgram input).Dom := by
-  letI : Inhabited OneTapeState := oneTapeStateInhabited c
+  let : Inhabited OneTapeState := oneTapeStateInhabited c
   exact SupportedTM1Thue.thue_iff_eval_dom thueBinaryCode oneTapeProgram
     (oneTapeSupport c) (oneTapeProgram_supports c) input
 
 theorem thueSystem_finite (c : ToPartrec.Code) : (thueSystem c).Finite := by
-  letI : Inhabited OneTapeState := oneTapeStateInhabited c
+  let : Inhabited OneTapeState := oneTapeStateInhabited c
   exact SupportedTM1Thue.system_finite thueBinaryCode oneTapeProgram
     (oneTapeSupport c) (oneTapeProgram_supports c)
 
@@ -61,7 +61,7 @@ noncomputable instance thueAlphabetPrimcodable (c : ToPartrec.Code) :
 
 theorem thueStart_computable (c : ToPartrec.Code) :
     Computable (thueStart c) := by
-  letI : Inhabited OneTapeState := oneTapeStateInhabited c
+  let : Inhabited OneTapeState := oneTapeStateInhabited c
   exact SupportedTM1Thue.start_computable thueBinaryCode oneTapeProgram
     (oneTapeSupport c) (oneTapeProgram_supports c)
 

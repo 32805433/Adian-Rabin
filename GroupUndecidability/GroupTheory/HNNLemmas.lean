@@ -167,11 +167,11 @@ def restrictedPhi (H : Subgroup G)
   left_inv a := by
     apply Subtype.ext
     apply Subtype.ext
-    simp
+    exact congrArg (fun x : A ↦ (x : G)) (phi.symm_apply_apply ⟨((a : H) : G), a.property⟩)
   right_inv b := by
     apply Subtype.ext
     apply Subtype.ext
-    simp
+    exact congrArg (fun x : B ↦ (x : G)) (phi.apply_symm_apply ⟨((b : H) : G), b.property⟩)
   map_mul' a b := by
     refine Subtype.ext (Subtype.ext ?_)
     change
@@ -279,7 +279,7 @@ private theorem restrictedEmbedding_preimage_base (H : Subgroup G)
       MonoidHom.range (HNNExtension.of (A := A) (B := B) (φ := phi))) :
     ∃ h : H, y = HNNExtension.of h := by
   let psi := restrictedPhi H hphi
-  letI : Nonempty (HNNExtension.NormalWord.TransversalPair H
+  let : Nonempty (HNNExtension.NormalWord.TransversalPair H
       (restrictedA (A := A) H) (restrictedB (B := B) H)) :=
     HNNExtension.NormalWord.TransversalPair.nonempty _ _ _
   let d : HNNExtension.NormalWord.TransversalPair H
@@ -393,7 +393,7 @@ theorem exists_reducedWord_of_mem_generatedWithStable
   rw [← restrictedEmbedding_range H hphi] at hx
   rcases hx with ⟨y, rfl⟩
   let psi := restrictedPhi H hphi
-  letI : Nonempty (HNNExtension.NormalWord.TransversalPair H
+  let : Nonempty (HNNExtension.NormalWord.TransversalPair H
       (restrictedA (A := A) H) (restrictedB (B := B) H)) :=
     HNNExtension.NormalWord.TransversalPair.nonempty _ _ _
   let d : HNNExtension.NormalWord.TransversalPair H
@@ -667,7 +667,7 @@ private theorem conjugatedEmbedding_preimage_base
       MonoidHom.range (centralizerOf C)) :
     ∃ a : A, y = HNNExtension.of a := by
   let K := conjugatePullback A C P
-  letI : Nonempty (HNNExtension.NormalWord.TransversalPair A K K) :=
+  let : Nonempty (HNNExtension.NormalWord.TransversalPair A K K) :=
     HNNExtension.NormalWord.TransversalPair.nonempty _ _ _
   let d : HNNExtension.NormalWord.TransversalPair A K K :=
     Classical.choice inferInstance
@@ -755,7 +755,7 @@ theorem conjugatedStable_mem_generatedWith_imp_doubleCoset
   rw [← conjugatedEmbedding_range A C P] at hQ
   rcases hQ with ⟨y, hy⟩
   let K := conjugatePullback A C P
-  letI : Nonempty (HNNExtension.NormalWord.TransversalPair A K K) :=
+  let : Nonempty (HNNExtension.NormalWord.TransversalPair A K K) :=
     HNNExtension.NormalWord.TransversalPair.nonempty _ _ _
   let d : HNNExtension.NormalWord.TransversalPair A K K :=
     Classical.choice inferInstance
@@ -1075,7 +1075,7 @@ theorem conjugated_doubleCoset_intersection
       exact hxWide
     rcases hxRange with ⟨y, hyx⟩
     let K := conjugatePullback B₀ C P
-    letI : Nonempty (HNNExtension.NormalWord.TransversalPair B₀ K K) :=
+    let : Nonempty (HNNExtension.NormalWord.TransversalPair B₀ K K) :=
       HNNExtension.NormalWord.TransversalPair.nonempty _ _ _
     let d : HNNExtension.NormalWord.TransversalPair B₀ K K :=
       Classical.choice inferInstance

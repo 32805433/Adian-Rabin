@@ -342,24 +342,18 @@ def stableProduct (colors : List (Fin 2)) (u : ℤˣ) :
 theorem flat_d_rulePower (i : Fin 3) :
     MultipleHNN.baseEmbedding A0 B0 phi0
         (BorisovHNNModel.d ^ rulePower i) = hnnD ^ (i.val + 1) := by
-  calc
-    _ = (MultipleHNN.baseEmbedding A0 B0 phi0
-          BorisovHNNModel.d) ^ rulePower i := map_zpow _ _ _
-    _ = hnnD ^ ((i.val + 1 : ℕ) : ℤ) := by
-      rw [flat_baseEmbedding, baseToG0HNN_d]
-      exact congrArg (fun n : ℤ ↦ hnnD ^ n) (by simp [rulePower])
-    _ = hnnD ^ (i.val + 1) := zpow_natCast _ _
+  rw [flat_baseEmbedding, map_zpow, baseToG0HNN_d]
+  change hnnD ^ rulePower i = hnnD ^ (i.val + 1)
+  rw [show rulePower i = ((i.val + 1 : ℕ) : ℤ) by simp [rulePower]]
+  exact zpow_natCast _ _
 
 theorem flat_e_rulePower (i : Fin 3) :
     MultipleHNN.baseEmbedding A0 B0 phi0
         (BorisovHNNModel.e ^ rulePower i) = hnnE ^ (i.val + 1) := by
-  calc
-    _ = (MultipleHNN.baseEmbedding A0 B0 phi0
-          BorisovHNNModel.e) ^ rulePower i := map_zpow _ _ _
-    _ = hnnE ^ ((i.val + 1 : ℕ) : ℤ) := by
-      rw [flat_baseEmbedding, baseToG0HNN_e]
-      exact congrArg (fun n : ℤ ↦ hnnE ^ n) (by simp [rulePower])
-    _ = hnnE ^ (i.val + 1) := zpow_natCast _ _
+  rw [flat_baseEmbedding, map_zpow, baseToG0HNN_e]
+  change hnnE ^ rulePower i = hnnE ^ (i.val + 1)
+  rw [show rulePower i = ((i.val + 1 : ℕ) : ℤ) by simp [rulePower]]
+  exact zpow_natCast _ _
 
 theorem run_eval (colors : List (Fin 2)) (hne : colors ≠ [])
     (u : ℤˣ) (lastCoeff : BorisovHNNModel.Base) :
@@ -613,7 +607,7 @@ theorem factorProduct_u (datum : Thue.StandingDatum)
   apply List.map_congr_left
   rintro ⟨q, sign⟩ _
   rw [factorModel_u]
-  cases sign <;> simp
+  cases sign <;> simp <;> rfl
 
 theorem factorProduct_v (datum : Thue.StandingDatum)
     (letters : List (Basis × Bool)) :
@@ -625,7 +619,7 @@ theorem factorProduct_v (datum : Thue.StandingDatum)
   apply List.map_congr_left
   rintro ⟨q, sign⟩ _
   rw [factorModel_v]
-  cases sign <;> simp
+  cases sign <;> simp <;> rfl
 
 def uExpansion (datum : Thue.StandingDatum) (w : FreeGroup Basis) : FlatWord :=
   expansionWord datum.F datum.F_nonempty w.toWord
@@ -639,13 +633,15 @@ theorem uExpansion_eval (datum : Thue.StandingDatum) (w : FreeGroup Basis) :
     MultipleHNNFlat.eval A0 B0 phi0 (uExpansion datum w) =
       toHNN (FreeGroup.lift (uBasis datum) w) := by
   unfold uExpansion
-  rw [expansionWord_eval, factorProduct_u, FreeGroup.mk_toWord]
+  rw [expansionWord_eval datum.F datum.F_nonempty w.toWord
+    (FreeGroup.isReduced_toWord (x := w)), factorProduct_u, FreeGroup.mk_toWord]
 
 theorem vExpansion_eval (datum : Thue.StandingDatum) (w : FreeGroup Basis) :
     MultipleHNNFlat.eval A0 B0 phi0 (vExpansion datum w) =
       toHNN (FreeGroup.lift (vBasis datum) w) := by
   unfold vExpansion
-  rw [expansionWord_eval, factorProduct_v, FreeGroup.mk_toWord]
+  rw [expansionWord_eval datum.E datum.E_nonempty w.toWord
+    (FreeGroup.isReduced_toWord (x := w)), factorProduct_v, FreeGroup.mk_toWord]
 
 private theorem toWord_ne_nil_of_ne_one {w : FreeGroup Basis} (hw : w ≠ 1) :
     w.toWord ≠ [] := by

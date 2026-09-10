@@ -12,6 +12,8 @@ namespace Undecidability.MillerTancer.LeftInjective
 open Monoid
 open LeftNormalForm
 
+attribute [local implicit_reducible] OuterFactor
+
 variable {G : Type} [Group G]
 
 def q (z : G) : LeftProduct G := old z * beta

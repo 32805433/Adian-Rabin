@@ -21,7 +21,7 @@ variable {G : Type} [Group G]
 inductive SplitIndex
   | zero
   | tail
-def SplitFactor : SplitIndex → Type
+@[implicit_reducible] def SplitFactor : SplitIndex → Type
   | .zero => FreeGroup Unit
   | .tail => FreeGroup (Fin 4)
 

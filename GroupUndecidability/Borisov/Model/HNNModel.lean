@@ -65,7 +65,6 @@ private theorem cyclicFour_generator :
   apply FreeGroup.mulEquivIntOfUnique.injective
   simp [cyclicFour, intFour, FreeGroup.mulEquivIntOfUnique,
     FreeGroup.equivIntOfUnique]
-  rfl
 
 private def componentA : (i : Fin 2) → FreeGroup Unit →* FreeGroup Unit
   | 0 => MonoidHom.id _

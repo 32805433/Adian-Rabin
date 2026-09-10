@@ -140,7 +140,7 @@ noncomputable def oldBlock (degree : Fin d → ℕ)
       (FreeGroup.of () : FreeGroup Unit) ^ (-degreeInt degree i) := by
   classical
   by_cases hx : x i = 1 <;>
-    simp [oldBlock, hx, alphaSingleton, cyclicSingleton]
+    simp [oldBlock, hx, alphaSingleton, cyclicSingleton] <;> rfl
 
 @[simp] theorem oldBlock_last (degree : Fin d → ℕ)
     (hdegree : ∀ i, 0 < degree i) (x : Fin d → G) (i : Fin d) :
@@ -148,7 +148,7 @@ noncomputable def oldBlock (degree : Fin d → ℕ)
       (FreeGroup.of () : FreeGroup Unit) ^ degreeInt degree i := by
   classical
   by_cases hx : x i = 1 <;>
-    simp [oldBlock, hx, betaSingleton, cyclicSingleton]
+    simp [oldBlock, hx, betaSingleton, cyclicSingleton] <;> rfl
 
 def commutatorBlock (w : G) (hw : w ≠ 1) :
     CoprodI.NeWord (LeftFactor G) .old .beta :=
@@ -383,7 +383,7 @@ private theorem not_pos_of_neg {k : ℤ} (hk : k < 0) : ¬ 0 < k := by omega
             (commutatorBlock w hw) (by decide) k hk hneg]
         simp [expectedHead, not_pos_of_neg hneg, betaLetter,
           commutatorBlock, betaSingleton, cyclicSingleton]
-        exact inv_inv _
+        congr 1
       · rw [powerPacked_commutator,
           cyclicPowerPacked_head_pos
             (commutatorBlock w hw) (by decide) k hk hpos]
@@ -409,6 +409,7 @@ private theorem not_pos_of_neg {k : ℤ} (hk : k < 0) : ¬ 0 < k := by omega
             (oldBlock degree hdegree x i) (by decide) k hk hneg]
         simp [expectedLast, not_pos_of_neg hneg, oldBlock_head,
           alphaLetter]
+        congr 1
         exact inv_inv _
       · rw [powerPacked_old,
           cyclicPowerPacked_last_pos
